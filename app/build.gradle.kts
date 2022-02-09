@@ -21,6 +21,8 @@ dependencies {
 
   implementation("com.malinskiy.adam:adam:0.4.3")
   implementation("info.picocli:picocli:4.6.2")
+  implementation("io.insert-koin:koin-core:3.1.5")
+  implementation("io.insert-koin:koin-test:3.1.5")
 
   // Fix SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder". etc.
   implementation("org.slf4j:slf4j-simple:1.7.26")
