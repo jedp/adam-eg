@@ -1,4 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
@@ -51,13 +50,20 @@ application {
   mainClass.set("com.jedparsons.adamcli.Main")
 }
 
-// Shadow all dependencies so we can create a single, fat jar.
-tasks.create<ConfigureShadowRelocation>("relocateShadowJar") {
-  target = tasks["shadowJar"] as ShadowJar
-  prefix = "shadow"
-}
-
 // Configure Shadow to output with normal jar file name:
 tasks.named<ShadowJar>("shadowJar").configure {
-  dependsOn(tasks["relocateShadowJar"])
+  // Note: ConfigureShadowRelocation results in an UnsatisfiedLinkError for netty's dns resolver.
+  // This can happen if JNI bindings expect certain names or namespaces which relocation clobbers.
+
+  from(
+    sourceSets.main.get().output,
+    project.configurations.runtimeClasspath
+  )
+
+  exclude(
+    "**/*.kotlin_metadata",
+    "**/*.kotlin_module",
+    "META-INF/maven/**"
+  )
+
 }

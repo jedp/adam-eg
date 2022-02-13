@@ -23,10 +23,11 @@ $ ./gradlew app:run --args="devices"
 Got devices: [Device(serial=192.168.86.181:5555, state=DEVICE)]
 ```
 
-Or you can use gradle to make a binary release of a stand-alone script:
+Or you can use gradle to make a binary release of a stand-alone script. Here,
+the `installShadowDist` task creates a single, fat jar:
 ```
-$ ./gradlew :app:installDist
-$ app/build/install/app/bin/app -h
+$ ./gradlew :app:installShadowDist
+$ app/build/install/app-shadow/bin/app -h
 [main] INFO ADB CLI - Running.
 Usage: adam-cli [-hV] [COMMAND]
 Working example of adam adb client.
