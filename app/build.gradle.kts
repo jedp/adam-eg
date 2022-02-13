@@ -1,8 +1,13 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
   val kotlinVersion = "1.6.0"
+  val shadowVersion = "7.1.2"
 
   kotlin("jvm") version kotlinVersion
   kotlin("kapt") version kotlinVersion
+  id("com.github.johnrengelman.shadow") version shadowVersion
 
   // Apply the application plugin to add support for building a CLI application in Java.
   application
@@ -44,4 +49,15 @@ testing {
 
 application {
   mainClass.set("com.jedparsons.adamcli.Main")
+}
+
+// Shadow all dependencies so we can create a single, fat jar.
+tasks.create<ConfigureShadowRelocation>("relocateShadowJar") {
+  target = tasks["shadowJar"] as ShadowJar
+  prefix = "shadow"
+}
+
+// Configure Shadow to output with normal jar file name:
+tasks.named<ShadowJar>("shadowJar").configure {
+  dependsOn(tasks["relocateShadowJar"])
 }
