@@ -12,8 +12,12 @@ App includes enough to get you up and running:
 - [adam](https://github.com/Malinskiy/adam) android debug bridge client
 - [picocli](https://picocli.info/) command-line interface
 - [koin](https://insert-koin.io/) dependency injection
+- [shadow](https://imperceptiblethoughts.com/shadow/) minimized fat jar builds
 
-You can gradle run the app and provide `picocli` arguments with `--args="your args"`:
+## Running
+
+You can gradle run the app and provide `picocli` arguments with `--args="your args"`.
+This is useful for testing incremental changes.
 ```
 $ ./gradlew app:run --args="devices"
 
@@ -23,8 +27,11 @@ $ ./gradlew app:run --args="devices"
 Got devices: [Device(serial=192.168.86.181:5555, state=DEVICE)]
 ```
 
-Or you can use gradle to make a binary release of a stand-alone script. Here,
-the `installShadowDist` task creates a single, fat jar:
+## Distributing
+
+You can also make a stand-alone build using the
+[shadow](https://imperceptiblethoughts.com/shadow/) plugin for gradle, which
+reduces the size of release by about two thirds.
 ```
 $ ./gradlew :app:installShadowDist
 $ app/build/install/app-shadow/bin/app -h
@@ -39,8 +46,9 @@ Commands:
   reboot    Reboot an attached device.
 ```
 
-For information about packaging the script in to a single jar and minimizing it
-size, see [The Making of a Tiny Kotlin
-App](https://dev.to/autonomousapps/tools-of-the-build-trade-the-making-of-a-tiny-kotlin-app-3eba)
-by Tony Robalik.
+## References
+
+- [The Making of a Tiny Kotlin
+  App](https://dev.to/autonomousapps/tools-of-the-build-trade-the-making-of-a-tiny-kotlin-app-3eba),
+  by Tony Robalik.
 
