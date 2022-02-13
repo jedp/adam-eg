@@ -66,4 +66,11 @@ tasks.named<ShadowJar>("shadowJar").configure {
     "META-INF/maven/**"
   )
 
+  minimize {
+    exclude(
+      // Fix: Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider
+      // Sadly, this causes the jar to grow by 1M.
+      dependency("io.netty:netty-all:.*")
+    )
+  }
 }
