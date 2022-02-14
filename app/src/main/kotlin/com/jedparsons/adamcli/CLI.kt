@@ -7,11 +7,13 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.slf4j.Logger
 import picocli.CommandLine.Command
+import picocli.CommandLine.HelpCommand
 
 @Command(
   name = "adam-cli",
   mixinStandardHelpOptions = true,
   subcommands = [
+    HelpCommand::class,
     Devices::class,
     Packages::class,
     Reboot::class
