@@ -46,6 +46,20 @@ Commands:
   reboot    Reboot an attached device.
 ```
 
+## Troubleshooting
+
+### BlockedThreadChecker
+
+Your app hangs on startup and produces logs like:
+```
+Feb 15, 2022 23:09:42 PM io.vertx.core.impl.BlockedThreadChecker
+WARNING Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 2940 ms, time limit is 2000 ms
+```
+
+See [this gist](https://gist.github.com/jedp/249a6eaa9a2dc56a32d7efaf671ace8e)
+for diagnosis and three solutions.
+
+
 ## References
 
 - [The Making of a Tiny Kotlin
